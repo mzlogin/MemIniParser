@@ -10,7 +10,8 @@ int main(int argc, char** argv)
     parser.Parser();
     wchar_t* pszValue = new wchar_t[MAX_PATH];
     memset(pszValue, 0, MAX_PATH * sizeof(wchar_t));
-    parser.ReadKey(L"General", L"url", pszValue, MAX_PATH);
+    parser.ReadKey(L"General", L"url", pszValue, MAX_PATH - 1);
+    delete [] pszValue;
 
     return 0;
 }

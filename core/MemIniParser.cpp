@@ -56,6 +56,9 @@ CMemIniParser::CMemIniParser(wchar_t* pszContent)
     m_pszContent = new wchar_t[nLen];
     wcscpy(m_pszContent, pszContent);
 
+    m_nMapLen = 0;
+    m_nMapUsed = 0;
+
     int nLineFeed = CountChar(pszContent, '\n');
     if (nLineFeed > 0)
     {
@@ -91,7 +94,7 @@ bool CMemIniParser::Parser()
 
         int nLen = wcslen(m_pszContent);
         int nOffset = 0;
-        int nWorkMap = 0;
+        m_nMapUsed = 0;
         wchar_t* pszSection = NULL;
 
         while (nOffset < nLen)
@@ -139,8 +142,8 @@ bool CMemIniParser::Parser()
                                 wcscpy(pszValue, pSplit + 1);
                                 Trim(pszValue);
 
-                                m_dcCoupleMaps[nWorkMap].SetValue(pszSection, pszKey, pszValue);
-                                nWorkMap++;
+                                m_dcCoupleMaps[m_nMapUsed].SetValue(pszSection, pszKey, pszValue);
+                                m_nMapUsed++;
                             }
 
                             if (pszKey)
@@ -266,7 +269,7 @@ void CMemIniParser::Trim(wchar_t* pszSrc)
 bool CMemIniParser::ReadKey(wchar_t* pszSection, wchar_t* pszKey, wchar_t* pszValue, int nLen)
 {
     bool bRet = false;
-    for (int i = 0; i < m_nMapLen; i++)
+    for (int i = 0; i < m_nMapUsed; i++)
     {
         if (0 == wcscmp(m_dcCoupleMaps[i].m_pszSection, pszSection) && 0 == wcscmp(m_dcCoupleMaps[i].m_pszKey, pszKey))
         {

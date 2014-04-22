@@ -30,6 +30,7 @@ protected:
 private:
     CDataCouple* m_dcCoupleMaps;
     int m_nMapLen;
+    int m_nMapUsed;
     wchar_t* m_pszContent;
 };
 
