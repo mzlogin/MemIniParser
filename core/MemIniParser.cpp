@@ -116,7 +116,7 @@ bool CMemIniParser::Parser()
                         }
                         pszSection = new wchar_t[nLineLen + 1];
                         memset(pszSection, 0, (nLineLen + 1) * sizeof(wchar_t));
-                        wcscpy(pszSection, pszLine);
+                        wcsncpy(pszSection, pszLine + 1, nLineLen - 2); // without '[' and ']'
                     }
                     else
                     {   // key-value couple
@@ -261,4 +261,19 @@ void CMemIniParser::Trim(wchar_t* pszSrc)
         pszSrc[i] = pszSrc[i + nStartPos];
     }
     pszSrc[i] = '\0';
+}
+
+bool CMemIniParser::ReadKey(wchar_t* pszSection, wchar_t* pszKey, wchar_t* pszValue, int nLen)
+{
+    bool bRet = false;
+    for (int i = 0; i < m_nMapLen; i++)
+    {
+        if (0 == wcscmp(m_dcCoupleMaps[i].m_pszSection, pszSection) && 0 == wcscmp(m_dcCoupleMaps[i].m_pszKey, pszKey))
+        {
+            wcsncpy(pszValue, m_dcCoupleMaps[i].m_pszValue, nLen);
+            bRet = true;
+            break;
+        }
+    }
+    return bRet;
 }

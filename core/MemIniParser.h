@@ -7,7 +7,7 @@ public:
     CDataCouple();
     ~CDataCouple();
     void SetValue(wchar_t* pszSection, wchar_t* pszKey, wchar_t* pszValue);
-private:
+
     wchar_t* m_pszSection;
     wchar_t* m_pszKey;
     wchar_t* m_pszValue;
@@ -20,6 +20,7 @@ public:
     ~CMemIniParser();
 
     bool Parser();
+    bool ReadKey(wchar_t* pszSection, wchar_t* pszKey, wchar_t* pszValue, int nLen);
 
 protected:
     int CountChar(wchar_t* pszSrc, wchar_t cDst);

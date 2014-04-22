@@ -1,5 +1,6 @@
 #include "core/MemIniParser.h"
 #include <Windows.h>
+#include <stdio.h>
 
 int main(int argc, char** argv)
 {
@@ -7,6 +8,9 @@ int main(int argc, char** argv)
 
     CMemIniParser parser(pIniContent);
     parser.Parser();
+    wchar_t* pszValue = new wchar_t[MAX_PATH];
+    memset(pszValue, 0, MAX_PATH * sizeof(wchar_t));
+    parser.ReadKey(L"General", L"url", pszValue, MAX_PATH);
 
     return 0;
 }
