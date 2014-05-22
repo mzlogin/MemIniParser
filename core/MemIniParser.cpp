@@ -239,14 +239,14 @@ void CMemIniParser::Trim(wchar_t* pszSrc)
     int nEndPos = wcslen(pszSrc);
 
     wchar_t* pWork = pszSrc;
-    while (nStartPos < nEndPos && (*pWork == ' ' || *pWork == '\t'))
+    while (nStartPos < nEndPos && (*pWork == ' ' || *pWork == '\t' || *pWork == '\r'))
     {
         pWork++;
         nStartPos++;
     }
 
     pWork = pszSrc + nEndPos - 1;
-    while (nStartPos < nEndPos && (*pWork == ' ' || *pWork == '\t'))
+    while (nStartPos < nEndPos && (*pWork == ' ' || *pWork == '\t' || *pWork == '\r'))
     {
         pWork--;
         nEndPos--;
